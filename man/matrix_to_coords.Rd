@@ -7,7 +7,7 @@
 matrix_to_coords(mat)
 }
 \arguments{
-\item{mat}{}
+\item{mat}{A matrix to be converted to coordinate pair and data columns}
 }
 \value{
 A data.frame with row, col, and data columns

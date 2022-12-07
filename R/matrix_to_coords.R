@@ -1,6 +1,6 @@
 #' Convert a matrix to a matrix of coordinates and values
 #'
-#' @param mat
+#' @param mat A matrix to be converted to coordinate pair and data columns
 #'
 #' @return A data.frame with row, col, and data columns
 #' @export

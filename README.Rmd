@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# mistlecode
+# `mistlecode`
 
 <!-- badges: start -->
 <!-- badges: end -->
