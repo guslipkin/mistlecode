@@ -22,7 +22,7 @@ get_adjacent_coords <- function(yy, xx, nrow = NULL, ncol = NULL, data = NULL,
     ncol <- ncol(data)
   }
 
-  l <- .get_adjacent(yy, xx, yCount, xCount)
+  l <- .get_adjacent(yy, xx, yCount, xCount, nrow, ncol)
   y <- l$row
   x <- l$col
 
@@ -48,7 +48,7 @@ get_adjacent_values <- function(yy, xx, data, yCount = 1, xCount = 1) {
   nrow <- nrow(data)
   ncol <- ncol(data)
 
-  l <- .get_adjacent(yy, xx, yCount, xCount)
+  l <- .get_adjacent(yy, xx, yCount, xCount, nrow, ncol)
   y <- l$row
   x <- l$col
 
@@ -56,7 +56,7 @@ get_adjacent_values <- function(yy, xx, data, yCount = 1, xCount = 1) {
 }
 
 #' @keywords internal
-.get_adjacent <- function(yy, xx, yCount, xCount) {
+.get_adjacent <- function(yy, xx, yCount, xCount, nrow, ncol) {
   y <- yy; y <- (y - yCount):(y + yCount)
   x <- xx; x <- (x - xCount):(x + xCount)
 
