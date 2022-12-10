@@ -1,3 +1,4 @@
+#' @importFrom pacman p_depends
 .onAttach <- function(libname, pkgname) {
   d <- pacman::p_depends(mistlecode, local = TRUE)$Depends
   d <- d[!(d %in% c("pacman", "renv", "testthat"))]
