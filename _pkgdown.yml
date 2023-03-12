@@ -1,4 +1,8 @@
-url: http://guslipkin.me/mistlecode/
+url: ~
 template:
   bootstrap: 5
+  bootswatch: flatly
 
+authors:
+  Gus Lipkin:
+    href: "https://guslipkin.me"
