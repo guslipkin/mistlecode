@@ -7,7 +7,7 @@ Description: Provides a set of functions to tackle common Advent of Code problem
 License: CC0
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.2
+RoxygenNote: 7.2.3
 Depends: 
     cipheR,
     data.table,
@@ -22,3 +22,5 @@ Suggests:
 Config/testthat/edition: 3
 Imports: 
     renv
+URL: http://mistlecode.guslipkin.me/, https://github.com/guslipkin/mistlecode
+BugReports: https://github.com/guslipkin/mistlecode/issues

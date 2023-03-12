@@ -2,6 +2,7 @@
 
 export(coords_to_matrix)
 export(expand_directions)
+export(find_path)
 export(follow_directions)
 export(get_adjacent_coords)
 export(get_adjacent_values)

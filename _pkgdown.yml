@@ -1,7 +1,4 @@
-url: ~
+url: http://guslipkin.me/mistlecode/
 template:
   bootstrap: 5
 
-authors:
-  Gus Lipkin:
-    href: "https://guslipkin.github.io"
