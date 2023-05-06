@@ -1,7 +1,5 @@
 #' expand_directions
 #'
-#' @importFrom dplyr slice select
-#'
 #' @param .data A data.frame or vector depending on `preserve_data`
 #' @param preserve_data A boolean to indicate if a data.frame (TRUE) or vector
 #'   (FALSE) should be returned.

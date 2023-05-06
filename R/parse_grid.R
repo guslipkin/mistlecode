@@ -1,8 +1,5 @@
 #' Parse a grid input
 #'
-#' @importFrom purrr map
-#' @importFrom stringr str_sub
-#'
 #' @param vec A vector of lines of text created using readLines
 #' @param width The width of each chunk. If not supplied, it is guessed (poorly...)
 #'

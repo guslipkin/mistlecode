@@ -3,8 +3,6 @@
 #' @details Does NOT include the target point. If a wall is clipped, the
 #'   coordinates will not include the clipped wall.
 #'
-#' @importFrom dplyr filter between
-#'
 #' @param yy The target y coordinate
 #' @param xx The target x coordinate
 #' @param nrow The maximum row value. Not needed if `data` is provided.
