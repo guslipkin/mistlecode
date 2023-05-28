@@ -15,7 +15,7 @@ follow_directions <- function(.data, row, col, preserve_data = FALSE) {
 
   df <-
     lapply(1:re_pete, \(i) {
-      dir <- ifelse(is_atomic(dt), dt[i], dt[i,"dir"])
+      dir <- ifelse(rlang::is_atomic(dt), dt[i], dt[i,"dir"])
 
       if (dir == "R") { coords <- list("row" = row, "col" = col + 1) }
       else if (dir == "L") { coords <- list("row" = row, "col" = col - 1) }
@@ -32,7 +32,5 @@ follow_directions <- function(.data, row, col, preserve_data = FALSE) {
       `colnames<-`(c("row", "col")) |>
       data.frame()
 
-  if (preserve_data) { df <- cbind(dt,df) }
-
-  return(df)
+  if (preserve_data) cbind(dt, df) else df
 }

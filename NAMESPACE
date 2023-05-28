@@ -2,11 +2,12 @@
 
 export(coords_to_matrix)
 export(expand_directions)
-export(find_path)
 export(follow_directions)
 export(get_adjacent_coords)
 export(get_adjacent_values)
 export(lag_multiple)
+export(loop)
 export(matrix_to_coords)
 export(parse_grid)
 importFrom(pacman,p_depends)
+importFrom(rlang,.data)

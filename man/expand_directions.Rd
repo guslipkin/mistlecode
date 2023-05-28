@@ -4,10 +4,10 @@
 \alias{expand_directions}
 \title{expand_directions}
 \usage{
-expand_directions(.data, preserve_data = FALSE)
+expand_directions(dt, preserve_data = FALSE)
 }
 \arguments{
-\item{.data}{A data.frame or vector depending on \code{preserve_data}}
+\item{dt}{A data.frame or vector depending on \code{preserve_data}}
 
 \item{preserve_data}{A boolean to indicate if a data.frame (TRUE) or vector
 (FALSE) should be returned.}

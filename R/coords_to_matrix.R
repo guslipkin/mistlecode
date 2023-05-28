@@ -9,8 +9,8 @@
 #' @return A matrix of dimensions row,col with data
 #' @export
 coords_to_matrix <- function(data, row, col, maxRow = NULL, maxCol = NULL) {
-  if(is.null(maxRow)) { maxRow <- max(row) } else { maxRow <- max(maxRow) }
-  if(is.null(maxCol)) { maxCol <- max(col) } else { maxCol <- max(maxCol) }
+  maxRow <- if(is.null(maxRow)) max(row) else max(maxRow)
+  maxCol <- if(is.null(maxCol)) max(col) else max(maxCol)
 
   mat <- matrix(NA, maxRow, maxCol)
 

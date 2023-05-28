@@ -10,6 +10,5 @@ matrix_to_coords <- function(mat) {
   data.frame(
     "data" = as.vector(mat),
     expand.grid("row" = 1:row, "col" = 1:col)
-  ) |>
-    as.matrix()
+  )
 }

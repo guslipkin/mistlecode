@@ -25,7 +25,7 @@ get_adjacent_coords <- function(yy, xx, nrow = NULL, ncol = NULL, data = NULL,
   x <- l$col
 
   expand.grid("row" = y, "col" = x) |>
-    dplyr::filter(!(col == xx & row == yy)) |>
+    dplyr::filter(!(.data$col == xx & .data$row == yy)) |>
     as.matrix()
 }
 

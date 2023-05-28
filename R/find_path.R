@@ -1,12 +1,3 @@
-#' find_path
-#'
-#' @param .data
-#' @param start
-#' @param end
-#' @param type
-#'
-#' @return
-#' @export
 find_path <- function(.data, start, end, type) {
   if (type == "mincost") {
     return(.min_cost(.data, end[1], end[2]))
