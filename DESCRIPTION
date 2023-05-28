@@ -18,7 +18,8 @@ Depends:
     stringr,
     tidyverse,
     glue,
-    rlang
+    rlang,
+    R6
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
