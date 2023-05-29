@@ -1,13 +1,48 @@
 #' Create a BASIC Computer
 #'
 #' @rdname basic
+#' @md
 #'
 #' @param registers A list of registers
 #' @param functions A list of functions. Registers can be referred to with
-#'   `self[[register_name]]`. The index is iterated with `private$.inc(j)` where
-#'   `j` is the number of places to "jump."
+#'   `self[[register_name]]`. They must have two arguments, `x` and `y`, even if
+#'   only one is used. The index is iterated with `private$.inc(j)` where `j` is
+#'   the number of places to "jump." Example: `\(x, y) private$.inc(self[[x]])`
+#'   will increment `self$index` by `self[[x]]`.
+#' @param increment (Default: `1`) The number of places to increment by default.
+#' @param regex (Default: `"[, \\+]+"`) The pattern to use for
+#'   [stringr::str_split]
 #'
-#' @return A new R6 object
+#' @details
+#' `try_numeric(x)`
+#' :  Takes input and tries to cast it as numeric. If that fails, it returns the
+#'    original object.
+#'
+#' `val_or_index(x)`
+#' :  If `x` is numeric, return `x`, otherwise return `self[[x]]`.
+#'
+#' `call(f, x, y)`
+#' :  Calls one of `functions` using `x` and `y` as arguments.
+#'    There are two ways the function can be used:
+#'    * `f` is not length one and `x` and `y` are null, then `f[1](f[2], f[3])`
+#'    * `f` is length one, and `x` and `y` are not null, then `f(x, y)`
+#'
+#' `run(x, target, until, pattern)`
+#' :  Tries to run the instructions provided by `x`. If `x` is a character
+#'    vector, it will try to split the instructions into a segments for
+#'    `call(f, x, y)`.
+#'    * `x`: A character vector of instructions as `c("f x y")` or a list of
+#'      character vectors in the format `list(c("f", "x", "y"))`
+#'    * `target`: (Default: `NULL`) The `register` to print as the final result.
+#'      If `NULL`, `self` will be printed.
+#'    * `pattern`: See the `regex` argument for more details.
+#'
+#' `.inc(increment)`
+#' :  A private function used to increment `self$index` by `increment`.
+#'
+#' @returns A new R6 object with `registers` and `functions` as the fields and
+#'   methods, respectively. Along with the functions detailed in the details
+#'   section.
 #' @export
 create_basic <- function(registers, functions, increment = 1, regex = "[, \\+]+") {
   basic <-
