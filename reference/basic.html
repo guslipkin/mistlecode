@@ -59,15 +59,50 @@
 
 <dt>functions</dt>
 <dd><p>A list of functions. Registers can be referred to with
-<code>self[[register_name]]</code>. The index is iterated with <code>private$.inc(j)</code> where
-<code>j</code> is the number of places to "jump."</p></dd>
+<code>self[[register_name]]</code>. They must have two arguments, <code>x</code> and <code>y</code>, even if
+only one is used. The index is iterated with <code>private$.inc(j)</code> where <code>j</code> is
+the number of places to "jump." Example: <code>\(x, y) private$.inc(self[[x]])</code>
+will increment <code>self$index</code> by <code>self[[x]]</code>.</p></dd>
+
+
+<dt>increment</dt>
+<dd><p>(Default: <code>1</code>) The number of places to increment by default.</p></dd>
+
+
+<dt>regex</dt>
+<dd><p>(Default: <code>"[, \\+]+"</code>) The pattern to use for
+<a href="https://stringr.tidyverse.org/reference/str_split.html" class="external-link">stringr::str_split</a></p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>A new R6 object</p>
+<p>A new R6 object with <code>registers</code> and <code>functions</code> as the fields and
+methods, respectively. Along with the functions detailed in the details
+section.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p><code>try_numeric(x)</code>
+:  Takes input and tries to cast it as numeric. If that fails, it returns the
+original object.</p>
+<p><code>val_or_index(x)</code>
+:  If <code>x</code> is numeric, return <code>x</code>, otherwise return <code>self[[x]]</code>.</p>
+<p><code>call(f, x, y)</code>
+:  Calls one of <code>functions</code> using <code>x</code> and <code>y</code> as arguments.
+There are two ways the function can be used:</p><ul><li><p><code>f</code> is not length one and <code>x</code> and <code>y</code> are null, then <code>f[1](f[2], f[3])</code></p></li>
+<li><p><code>f</code> is length one, and <code>x</code> and <code>y</code> are not null, then <code>f(x, y)</code></p></li>
+</ul><p><code>run(x, target, until, pattern)</code>
+:  Tries to run the instructions provided by <code>x</code>. If <code>x</code> is a character
+vector, it will try to split the instructions into a segments for
+<code>call(f, x, y)</code>.</p><ul><li><p><code>x</code>: A character vector of instructions as <code>c("f x y")</code> or a list of
+character vectors in the format <code>list(c("f", "x", "y"))</code></p></li>
+<li><p><code>target</code>: (Default: <code>NULL</code>) The <code>register</code> to print as the final result.
+If <code>NULL</code>, <code>self</code> will be printed.</p></li>
+<li><p><code>pattern</code>: See the <code>regex</code> argument for more details.</p></li>
+</ul><p><code>.inc(increment)</code>
+:  A private function used to increment <code>self$index</code> by <code>increment</code>.</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
