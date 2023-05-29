@@ -1,6 +1,6 @@
-#' Create a BASIC Computer
+#' Create an AoC Assembly Computer
 #'
-#' @rdname basic
+#' @rdname assembly
 #' @md
 #'
 #' @param registers A list of registers
@@ -40,14 +40,14 @@
 #' `.inc(increment)`
 #' :  A private function used to increment `self$index` by `increment`.
 #'
-#' @returns A new R6 object with `registers` and `functions` as the fields and
-#'   methods, respectively. Along with the functions detailed in the details
-#'   section.
+#' @returns A new `assembly` R6 object with `registers` and `functions` as the
+#'   fields and methods, respectively. Along with the functions detailed in the
+#'   details section.
 #' @export
-create_basic <- function(registers, functions, increment = 1, regex = "[, \\+]+") {
-  basic <-
+create_assembly <- function(registers, functions, increment = 1, regex = "[, \\+]+") {
+  assembly <-
     R6::R6Class(
-      "basic",
+      "assembly",
       public = unlist(list(
         as.list(c(registers, functions)),
         "index" = 1,
@@ -74,5 +74,5 @@ create_basic <- function(registers, functions, increment = 1, regex = "[, \\+]+"
         .inc = \(i = increment) { self$index <- self$index + i; self; }
       )
     )
-  return(basic$new())
+  return(assembly$new())
 }
