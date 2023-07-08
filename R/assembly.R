@@ -44,7 +44,8 @@
 #'   fields and methods, respectively. Along with the functions detailed in the
 #'   details section.
 #' @export
-create_assembly <- function(registers, functions, increment = 1, regex = "[, \\+]+") {
+create_assembly <- function(registers, functions, increment = 1, regex = "[, \\+]+", regex_type = c("split", "match"), fixed_n = NULL) {
+  regex_type <- rlang::arg_match(regex_type)
   assembly <-
     R6::R6Class(
       "assembly",
@@ -62,8 +63,18 @@ create_assembly <- function(registers, functions, increment = 1, regex = "[, \\+
           }
           self[[f]](self$try_numeric(x), self$try_numeric(y))
         },
-        "run" = \(x, target = NULL, until = length(x), pattern = regex) {
-          if (!is.list(x)) { x <- stringr::str_split(x, pattern) }
+        "run" = \(x, target = NULL, until = length(x), pattern = regex, pattern_type = regex_type) {
+          if (!is.list(x)) {
+            if (regex_type == "split") {
+              if (!is.null(fixed_n)) {
+                x <- stringr::str_split_fixed(x, pattern, n = fixed_n)
+              } else {
+                x <- stringr::str_split(x, pattern)
+              }
+            } else if (regex_type == "match") {
+              x <- stringr::str_match(x, pattern)
+            }
+          }
           while(self$index <= until) {
             self$call(x[[self$index]])
           }
