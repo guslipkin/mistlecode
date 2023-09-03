@@ -52,8 +52,7 @@ create_assembly <- function(registers, functions, increment = 1, regex = "[, \\+
         as.list(c(registers, functions)),
         "index" = 1,
         "try_numeric" = \(x) {
-          xx <- suppressWarnings(as.numeric(x))
-          if (is.na(xx)) x else xx
+          tryCatch(as.numeric(x), warning = function(w) x)
         },
         "val_or_index" = \(x) { if (is.numeric(x)) x else self[[x]] },
         "call" = \(f, x = NULL, y = NULL) {
@@ -75,4 +74,17 @@ create_assembly <- function(registers, functions, increment = 1, regex = "[, \\+
       )
     )
   return(assembly$new())
+}
+
+#' Add a Processor Layer to an Assembly Instruction Set
+#'
+#' @rdname add_processor
+#'
+#' @param x A vector of instructions
+#'
+#' @return A list of vectors of length two. The first item is `"proc"` and the
+#'   second is the original instruction in x.
+#' @export
+add_processor <- function(x) {
+  lapply(x, \(x) c("proc", x))
 }
