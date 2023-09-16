@@ -1,6 +1,6 @@
 #' Create an AoC Assembly Computer
 #'
-#' @rdname assembly
+#' @rdname assembly2
 #' @md
 #'
 #' @param registers A list of registers
@@ -20,6 +20,10 @@
 #'
 #' `val_or_index(x)`
 #' :  If `x` is numeric, return `x`, otherwise return `self[[x]]`.
+#'
+#' `jump(x, y)`
+#' :  A shortcut for a common jump scheme. Can be called with
+#'    `"jump_fun" = \(x, y) { self$jump(x, y) }`.
 #'
 #' `call(f, x, y)`
 #' :  Calls one of `functions` using `x` and `y` as arguments.
@@ -44,7 +48,7 @@
 #'   fields and methods, respectively. Along with the functions detailed in the
 #'   details section.
 #' @export
-create_assembly <- function(registers, functions, increment = 1, regex = "[, \\+]+") {
+create_assembly2 <- function(registers, functions, increment = 1, regex = "[\\w\\d\\-]+") {
   assembly <-
     R6::R6Class(
       "assembly",
@@ -54,24 +58,46 @@ create_assembly <- function(registers, functions, increment = 1, regex = "[, \\+
         "try_numeric" = \(x) {
           tryCatch(as.numeric(x), warning = function(w) x)
         },
-        "val_or_index" = \(x) { if (is.numeric(x)) x else self[[x]] },
-        "call" = \(f, x = NULL, y = NULL) {
-          if (length(f) != 1 & is.null(x) & is.null(y)) {
-            x <- f[2]; y <- f[3]; f <- f[1]; # don't put this first!!!
-          }
-          self[[f]](self$try_numeric(x), self$try_numeric(y))
+        "val_or_index" = \(x) {
+          x <- self$try_numeric(x)
+          if (is.character(x) && !is.null(self[[x]])) self[[x]] else x
         },
-        "run" = \(x, target = NULL, until = length(x), pattern = regex) {
-          if (!is.list(x)) { x <- stringr::str_split(x, pattern) }
-          while(self$index <= until) {
-            self$call(x[[self$index]])
-          }
+        "call" = \(f, ...) {
+          do.call(self[[f]], args = lapply(..., self$try_numeric))
+          private$.inc()
+        },
+        "run" = \(x, pattern = regex, target = NULL, until = length(x)) {
+          while(self$index <= until) self$clock(x, pattern)
           if (is.null(target)) self else self[[target]]
+        },
+        "clock" = \(x, pattern = regex) {
+          x <- private$.match(x, pattern)
+          self$call(x[1], x[-1])
         }
       )),
       private = list(
-        .inc = \(i = increment) { self$index <- self$index + i; self; }
+        ".inc" = \(i = increment) { self$index <- self$index + i; self; },
+        ".match" = \(x, pattern = regex) {
+          if (!is.list(x)) {
+            x <-
+              x[[self$index]] |>
+              stringr::str_match_all(pattern) |>
+              unlist()
+          }
+          x
+        }
       )
     )
   return(assembly$new())
 }
+
+registers <- list("a" = 1, "b" = 2)
+functions <- list(
+  "sum" = \(x, y) { self[[x]] <- sum(self[[x]], y)},
+  "prod" = \(x, ...) {
+    print(x)
+    self[[x]] <- prod(self[[x]], ...)
+  }
+)
+a <- create_assembly2(registers, get_premade(c("add", "multiply"), c("sum", "prod")))
+a$run(c("sum a 4", "prod b 4"))
