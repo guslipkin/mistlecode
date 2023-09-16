@@ -11,7 +11,7 @@ expand_directions <- function(dt, preserve_data = FALSE) {
   n <- c("dir", "mag", n[!(n %in% c("dir", "mag"))])
   dt <-
     dt |>
-    dplyr::select(!!.data$n) |>
-    dplyr::slice(rep(1:n(), .data$mag))
+    dplyr::select(tidyselect::all_of(n)) |>
+    dplyr::slice(rep(1:n(), mag))
   if (preserve_data) dt else dplyr::pull(dt, .data$dir)
 }
