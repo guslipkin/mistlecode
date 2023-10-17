@@ -13,10 +13,13 @@
     <loc>/index.html</loc>
   </url>
   <url>
-    <loc>/reference/add_processor.html</loc>
+    <loc>/reference/assembly.html</loc>
   </url>
   <url>
-    <loc>/reference/assembly.html</loc>
+    <loc>/reference/assembly2.html</loc>
+  </url>
+  <url>
+    <loc>/reference/assembly_utils.html</loc>
   </url>
   <url>
     <loc>/reference/coords_to_matrix.html</loc>
@@ -35,6 +38,9 @@
   </url>
   <url>
     <loc>/reference/get_adjacent_values.html</loc>
+  </url>
+  <url>
+    <loc>/reference/get_diagonal.html</loc>
   </url>
   <url>
     <loc>/reference/index.html</loc>
