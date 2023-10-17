@@ -30,6 +30,7 @@ Compute a lagged version of the input data with multiple lags at once
 }
 \examples{
 # Creating dummy data
+set.seed(1)
 x <- rnorm(10)
 # for lags 1-5
 lag_multiple(x, 1:5)

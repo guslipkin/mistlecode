@@ -44,7 +44,7 @@
 #' `.inc(increment)`
 #' :  A private function used to increment `self$index` by `increment`.
 #'
-#' @returns A new `assembly` R6 object with `registers` and `functions` as the
+#' @return A new `assembly` R6 object with `registers` and `functions` as the
 #'   fields and methods, respectively. Along with the functions detailed in the
 #'   details section.
 #' @export
@@ -91,13 +91,13 @@ create_assembly2 <- function(registers, functions, increment = 1, regex = "[\\w\
   return(assembly$new())
 }
 
-registers <- list("a" = 1, "b" = 2)
-functions <- list(
-  "sum" = \(x, y) { self[[x]] <- sum(self[[x]], y)},
-  "prod" = \(x, ...) {
-    print(x)
-    self[[x]] <- prod(self[[x]], ...)
-  }
-)
-a <- create_assembly2(registers, get_premade(c("add", "multiply"), c("sum", "prod")))
-a$run(c("sum a 4", "prod b 4"))
+# registers <- list("a" = 1, "b" = 2)
+# functions <- list(
+#   "sum" = \(x, y) { self[[x]] <- sum(self[[x]], y)},
+#   "prod" = \(x, ...) {
+#     print(x)
+#     self[[x]] <- prod(self[[x]], ...)
+#   }
+# )
+# a <- create_assembly2(registers, get_premade(c("add", "prod" = "multiply")))
+# a$run(c("add a 4", "prod b 4"))

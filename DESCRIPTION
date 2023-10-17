@@ -23,7 +23,5 @@ Depends:
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
-Imports: 
-    renv
 URL: http://mistlecode.guslipkin.me/, https://github.com/guslipkin/mistlecode
 BugReports: https://github.com/guslipkin/mistlecode/issues

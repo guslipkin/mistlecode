@@ -13,17 +13,16 @@ add_processor <- function(x) {
 
 #' Easily Get Premade Assembly Instructions
 #'
+#' @export
+#'
 #' @rdname assembly_utils
 #'
 #' @param x A vector of functions. The options are
 #'    `c("set", "add", "subtract", "multiply", "divide", "modulo")`.
-#' @param fun_names (Default: `NULL`). A vector the same length as `x` with
-#'   names for the functions. If `NULL`, the default names are used.
 #'
 #' @return A list of functions.
 #' @export
-get_premade <- function(x = c("jump", "set", "add", "subtract", "multiply", "divide", "modulo"), fun_names = NULL) {
-  stopifnot(length(x) == length(fun_names))
+get_premade <- function(x = c("jump", "set", "add", "subtract", "multiply", "divide", "modulo")) {
   x <- rlang::arg_match(x, multiple = TRUE)
   fun_list <- list(
     "jump" = \(x, y) {
@@ -36,6 +35,9 @@ get_premade <- function(x = c("jump", "set", "add", "subtract", "multiply", "div
     "divide" = \(x, y) { self[[x]] <- self[[x]] - self$val_or_index(y) },
     "modulo" = \(x, y) { self[[x]] <- self[[x]] %% self$val_or_index(y) }
   )[x]
-  if (!is.null(fun_names)) names(fun_list) <- fun_names
-  fun_list
+  fun_names <- names(x)
+  blank_names <- which(fun_names == "")
+  fun_names[blank_names] <- names(fun_list[blank_names])
+  names(fun_list) <- fun_names
+  return(fun_list)
 }
