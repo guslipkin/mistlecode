@@ -19,9 +19,11 @@ Depends:
     tidyverse,
     glue,
     rlang,
-    R6
+    R6,
+    R (>= 2.10)
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 URL: http://mistlecode.guslipkin.me/, https://github.com/guslipkin/mistlecode
 BugReports: https://github.com/guslipkin/mistlecode/issues
+LazyData: true

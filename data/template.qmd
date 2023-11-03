@@ -1,0 +1,21 @@
+---
+title: "{{day}}: "
+format: html
+---
+
+```{r}
+#| message: false
+library(mistlecode)
+
+options(scipen = 999)
+```
+
+```{r}
+dt <- readLines("input.txt")
+```
+
+## Part 1
+
+```{r}
+
+```
