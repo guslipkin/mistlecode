@@ -4,7 +4,10 @@
 \alias{make_day}
 \title{Make a File for a New Day}
 \usage{
-make_day(year = lubridate::year(Sys.Date()), day = lubridate::mday(Sys.Date()))
+make_day(
+  year = lubridate::year(Sys.Date()),
+  day = lubridate::mday(Sys.Date() + 1)
+)
 }
 \arguments{
 \item{year}{The year}
