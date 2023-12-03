@@ -19,3 +19,9 @@ dt <- readLines("input.txt")
 ```{r}
 
 ```
+
+## Part 2
+
+```{r}
+
+```

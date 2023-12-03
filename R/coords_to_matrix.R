@@ -8,7 +8,7 @@
 #'
 #' @return A matrix of dimensions row,col with data
 #' @export
-coords_to_matrix <- function(data, row, col, maxRow = NULL, maxCol = NULL) {
+coords_to_matrix <- function(data, row = data$row, col = data$col, maxRow = NULL, maxCol = NULL) {
   maxRow <- if(is.null(maxRow)) max(row) else max(maxRow)
   maxCol <- if(is.null(maxCol)) max(col) else max(maxCol)
 

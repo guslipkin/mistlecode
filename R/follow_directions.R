@@ -11,11 +11,13 @@
 #' @export
 follow_directions <- function(.data, row, col, preserve_data = FALSE) {
   dt <- .data
-  re_pete <- ifelse(is.atomic(dt), length(dt), nrow(dt))
+  re_pete <- if (rlang::is_atomic(dt)) length(dt) else nrow(dt)
 
   df <-
-    lapply(1:re_pete, \(i) {
-      dir <- ifelse(rlang::is_atomic(dt), dt[i], dt[i,"dir"])
+    re_pete |>
+    seq_along() |>
+    lapply(\(i) {
+      dir <- if (rlang::is_atomic(dt)) dt[i] else dt[i,"dir"]
 
       if (dir == "R") { coords <- list("row" = row, "col" = col + 1) }
       else if (dir == "L") { coords <- list("row" = row, "col" = col - 1) }

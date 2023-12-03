@@ -11,8 +11,10 @@ make_day <- function(year = lubridate::year(Sys.Date()), day = lubridate::mday(S
   if (!dir.exists(folder_path)) dir.create(folder_path, recursive = TRUE)
   e <- rlang::current_env()
   # readLines('data/template.qmd') -> template
+  path <- glue::glue('{folder_path}/{year}-{day}.qmd')
   mistlecode::template |>
     sapply(glue::glue, .open = '{{', .close = '}}', .envir = e) |>
     paste(collapse = '\n') |>
-    writeLines(glue::glue('{folder_path}/{year}-{day}.qmd'))
+    writeLines(path)
+  rstudioapi::navigateToFile(path)
 }

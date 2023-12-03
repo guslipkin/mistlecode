@@ -4,7 +4,13 @@
 \alias{coords_to_matrix}
 \title{Convert a set of coords to a matrix}
 \usage{
-coords_to_matrix(data, row, col, maxRow = NULL, maxCol = NULL)
+coords_to_matrix(
+  data,
+  row = data$row,
+  col = data$col,
+  maxRow = NULL,
+  maxCol = NULL
+)
 }
 \arguments{
 \item{data}{A vector of data}
