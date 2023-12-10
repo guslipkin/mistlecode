@@ -12,18 +12,22 @@ create_assembly2(
 )
 }
 \arguments{
-\item{registers}{A list of registers}
+\item{registers}{A named list of registers.}
 
-\item{functions}{A list of functions. Registers can be referred to with
-\code{self[[register_name]]}. They must have two arguments, \code{x} and \code{y}, even if
-only one is used. The index is iterated with \code{private$.inc(j)} where \code{j} is
-the number of places to "jump." Example: \verb{\\(x, y) private$.inc(self[[x]])}
-will increment \code{self$index} by \code{self[[x]]}.}
+\item{functions}{A named list of functions. Registers can be referred to with
+\code{self[[register_name]]}. Functions usually take a register and value as
+arguments, but do not always. Registers can be referenced by name with
+\code{self$register_name}, or by variable with \code{self[[var]]}.}
 
-\item{increment}{(Default: \code{1}) The number of places to increment by default.}
+\item{increment}{(Default: \code{1}) The number of places to increment by default.
+Incrementing is performed automatically so if a particular instruction says
+to increment by more than one, then include that operation in the function,
+but subtract one to account for the default incrementation.}
 
-\item{regex}{(Default: \code{"[, \\\\+]+"}) The pattern to use for
-\link[stringr:str_split]{stringr::str_split}}
+\item{regex}{(Default: \code{"[\\\\w\\\\d\\\\-]+"}) The pattern to use for
+\link[stringr:str_match]{stringr::str_match_all}. Capture groups should not be used, instead the
+\code{|} (or) operator should be used. For example, if you want to parse an
+arbitrary instruction then a number, you would use \verb{[A-z]+|[0-9]+}.}
 }
 \value{
 A new \code{assembly} R6 object with \code{registers} and \code{functions} as the
@@ -67,4 +71,16 @@ If \code{NULL}, \code{self} will be printed.
 
 \code{.inc(increment)}
 :  A private function used to increment \code{self$index} by \code{increment}.
+}
+\examples{
+\dontrun{
+registers <- list("a" = 1, "b" = 2)
+functions <- list(
+  "sum" = \(x, y) { self[[x]] <- sum(self[[x]], y) },
+  "prod" = get_premade("multiply")
+)
+a <- create_assembly2(registers, get_premade(c("add", "prod" = "multiply")))
+a$run(c("add a 4", "prod b 4"), target = 'a')
+}
+
 }

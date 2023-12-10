@@ -17,11 +17,18 @@ add_processor <- function(x) {
 #'
 #' @rdname assembly_utils
 #'
-#' @param x A vector of functions. The options are
-#'    `c("set", "add", "subtract", "multiply", "divide", "modulo")`.
+#' @param x A vector of functions. The options are `c("set", "add", "subtract",
+#'   "multiply", "divide", "modulo")`. A named vector can be supplied where the
+#'   functions returned will match the values of the supplied vector with the
+#'   names of the supplied vector.
 #'
 #' @return A list of functions.
 #' @export
+#'
+#' @examples
+#' \dontrun{
+#' get_premade(c("add", "prod" = "multiply"))
+#' }
 get_premade <- function(x = c("jump", "set", "add", "subtract", "multiply", "divide", "modulo")) {
   x <- rlang::arg_match(x, multiple = TRUE)
   fun_list <- list(
@@ -39,5 +46,6 @@ get_premade <- function(x = c("jump", "set", "add", "subtract", "multiply", "div
   blank_names <- which(fun_names == "")
   fun_names[blank_names] <- names(fun_list[blank_names])
   names(fun_list) <- fun_names
+  if (length(fun_list) == 1) fun_list <- fun_list[[1]]
   return(fun_list)
 }

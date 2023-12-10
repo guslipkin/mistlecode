@@ -10,36 +10,27 @@
 #'   cell
 #'
 #' @returns A matrix of the same dimensions as `m`
-flash <- function(m, .fn, i, cores = future::availableCores()) {
-  future::plan(future::multicore, workers = cores)
+#' @export
+flash <- function(m, .fn, i = 1, cores = future::availableCores() - 1, ...) {
+  session <- if (cores == 1) future::sequential else future::multisession
+  future::plan(session, workers = cores)
   progressr::with_progress({
-    p <- progressr::progressor(steps = i)
-    .do_flash(m, .fn, i, p)
+    p <- progressr::progressor(steps = ncol(m) * nrow(m) * i)
+    while (i > 0) {
+      m <-
+        expand.grid(
+          "y" = seq_len(nrow(m)),
+          "x" = seq_len(ncol(m))
+        ) |>
+        furrr::future_pmap(\(y, x) {
+          p()
+          rlang::exec(quote(.fn), rlang::inject(list(y = y, x = x, m = m, ...)))
+        }) |>
+        unlist() |>
+        matrix(nrow = nrow(m), byrow = FALSE)
+      i <- i - 1
+    }
   })
   future::plan(future::sequential)
-}
-
-#' @noRd
-#'
-#' @inheritParams flash
-#' @param p A [progressr::progressor()] object
-#'
-#' @return `m` after the flashes have been performed
-#' @keywords internal
-.do_flash <- function(m, .fn, i, p) {
-  while (i > 0) {
-    p()
-    m <-
-      expand.grid(
-        "y" = seq_len(nrow(m)),
-        "x" = seq_len(ncol(m))
-      ) |>
-      furrr::future_pmap(\(y, x) {
-        rlang::exec(quote(.fn), y, x, m)
-      }) |>
-      unlist() |>
-      matrix(nrow = nrow(m), byrow = FALSE)
-    i <- i - 1
-  }
   return(m)
 }

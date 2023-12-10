@@ -4,15 +4,15 @@
 \alias{follow_directions}
 \title{follow_directions}
 \usage{
-follow_directions(.data, row, col, preserve_data = FALSE)
+follow_directions(.data, row = 0, col = 0, preserve_data = FALSE)
 }
 \arguments{
 \item{.data}{A vector of \code{RLUD} directions. See \code{expand_directions} to
 generate from a data.frame of direction and magnitude.}
 
-\item{row}{The starting row value}
+\item{row}{(Default: \code{0}) The starting row value}
 
-\item{col}{The starting column value}
+\item{col}{(Default: \code{0}) The starting column value}
 
 \item{preserve_data}{A boolean to indicate if data besides \code{row} and \code{col}
 should be returned.}

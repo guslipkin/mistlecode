@@ -4,7 +4,7 @@
 \alias{flash}
 \title{Perform a Function on Each Cell in a Matrix}
 \usage{
-flash(m, .fn, i, cores = future::availableCores())
+flash(m, .fn, i = 1, cores = future::availableCores() - 1, ...)
 }
 \arguments{
 \item{m}{A matrix}

@@ -8,16 +8,13 @@
 add_processor(x)
 
 get_premade(
-  x = c("jump", "set", "add", "subtract", "multiply", "divide", "modulo"),
-  fun_names = NULL
+  x = c("jump", "set", "add", "subtract", "multiply", "divide", "modulo")
 )
 }
 \arguments{
-\item{x}{A vector of functions. The options are
-\code{c("set", "add", "subtract", "multiply", "divide", "modulo")}.}
-
-\item{fun_names}{(Default: \code{NULL}). A vector the same length as \code{x} with
-names for the functions. If \code{NULL}, the default names are used.}
+\item{x}{A vector of functions. The options are \code{c("set", "add", "subtract", "multiply", "divide", "modulo")}. A named vector can be supplied where the
+functions returned will match the values of the supplied vector with the
+names of the supplied vector.}
 }
 \value{
 A list of vectors of length two. The first item is \code{"proc"} and the
@@ -29,4 +26,9 @@ A list of functions.
 Add a Processor Layer to an Assembly Instruction Set
 
 Easily Get Premade Assembly Instructions
+}
+\examples{
+\dontrun{
+get_premade(c("add", "prod" = "multiply"))
+}
 }

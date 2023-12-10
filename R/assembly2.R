@@ -3,15 +3,19 @@
 #' @rdname assembly2
 #' @md
 #'
-#' @param registers A list of registers
-#' @param functions A list of functions. Registers can be referred to with
-#'   `self[[register_name]]`. They must have two arguments, `x` and `y`, even if
-#'   only one is used. The index is iterated with `private$.inc(j)` where `j` is
-#'   the number of places to "jump." Example: `\(x, y) private$.inc(self[[x]])`
-#'   will increment `self$index` by `self[[x]]`.
+#' @param registers A named list of registers.
+#' @param functions A named list of functions. Registers can be referred to with
+#'   `self[[register_name]]`. Functions usually take a register and value as
+#'   arguments, but do not always. Registers can be referenced by name with
+#'   `self$register_name`, or by variable with `self[[var]]`.
 #' @param increment (Default: `1`) The number of places to increment by default.
-#' @param regex (Default: `"[, \\+]+"`) The pattern to use for
-#'   [stringr::str_split]
+#'   Incrementing is performed automatically so if a particular instruction says
+#'   to increment by more than one, then include that operation in the function,
+#'   but subtract one to account for the default incrementation.
+#' @param regex (Default: `"[\\w\\d\\-]+"`) The pattern to use for
+#'   [stringr::str_match_all]. Capture groups should not be used, instead the
+#'   `|` (or) operator should be used. For example, if you want to parse an
+#'   arbitrary instruction then a number, you would use `[A-z]+|[0-9]+`.
 #'
 #' @details
 #' `try_numeric(x)`
@@ -48,6 +52,18 @@
 #'   fields and methods, respectively. Along with the functions detailed in the
 #'   details section.
 #' @export
+#'
+#' @examples
+#' \dontrun{
+#' registers <- list("a" = 1, "b" = 2)
+#' functions <- list(
+#'   "sum" = \(x, y) { self[[x]] <- sum(self[[x]], y) },
+#'   "prod" = get_premade("multiply")
+#' )
+#' a <- create_assembly2(registers, get_premade(c("add", "prod" = "multiply")))
+#' a$run(c("add a 4", "prod b 4"), target = 'a')
+#' }
+#'
 create_assembly2 <- function(registers, functions, increment = 1, regex = "[\\w\\d\\-]+") {
   assembly <-
     R6::R6Class(
@@ -84,7 +100,7 @@ create_assembly2 <- function(registers, functions, increment = 1, regex = "[\\w\
               stringr::str_match_all(pattern) |>
               unlist()
           }
-          x
+          return(x)
         }
       )
     )
@@ -93,11 +109,8 @@ create_assembly2 <- function(registers, functions, increment = 1, regex = "[\\w\
 
 # registers <- list("a" = 1, "b" = 2)
 # functions <- list(
-#   "sum" = \(x, y) { self[[x]] <- sum(self[[x]], y)},
-#   "prod" = \(x, ...) {
-#     print(x)
-#     self[[x]] <- prod(self[[x]], ...)
-#   }
+#   "sum" = \(x, y) { self[[x]] <- sum(self[[x]], y) },
+#   "prod" = get_premade("multiply")
 # )
 # a <- create_assembly2(registers, get_premade(c("add", "prod" = "multiply")))
-# a$run(c("add a 4", "prod b 4"))
+# a$run(c("add a 4", "prod b 4"), target = 'a')
