@@ -59,24 +59,28 @@
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>registers</dt>
-<dd><p>A list of registers</p></dd>
+<dd><p>A named list of registers.</p></dd>
 
 
 <dt>functions</dt>
-<dd><p>A list of functions. Registers can be referred to with
-<code>self[[register_name]]</code>. They must have two arguments, <code>x</code> and <code>y</code>, even if
-only one is used. The index is iterated with <code>private$.inc(j)</code> where <code>j</code> is
-the number of places to "jump." Example: <code>\(x, y) private$.inc(self[[x]])</code>
-will increment <code>self$index</code> by <code>self[[x]]</code>.</p></dd>
+<dd><p>A named list of functions. Registers can be referred to with
+<code>self[[register_name]]</code>. Functions usually take a register and value as
+arguments, but do not always. Registers can be referenced by name with
+<code>self$register_name</code>, or by variable with <code>self[[var]]</code>.</p></dd>
 
 
 <dt>increment</dt>
-<dd><p>(Default: <code>1</code>) The number of places to increment by default.</p></dd>
+<dd><p>(Default: <code>1</code>) The number of places to increment by default.
+Incrementing is performed automatically so if a particular instruction says
+to increment by more than one, then include that operation in the function,
+but subtract one to account for the default incrementation.</p></dd>
 
 
 <dt>regex</dt>
-<dd><p>(Default: <code>"[, \\+]+"</code>) The pattern to use for
-<a href="https://stringr.tidyverse.org/reference/str_split.html" class="external-link">stringr::str_split</a></p></dd>
+<dd><p>(Default: <code>"[\\w\\d\\-]+"</code>) The pattern to use for
+<a href="https://stringr.tidyverse.org/reference/str_match.html" class="external-link">stringr::str_match_all</a>. Capture groups should not be used, instead the
+<code>|</code> (or) operator should be used. For example, if you want to parse an
+arbitrary instruction then a number, you would use <code>[A-z]+|[0-9]+</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -113,6 +117,20 @@ If <code>NULL</code>, <code>self</code> will be printed.</p></li>
 :  A private function used to increment <code>self$index</code> by <code>increment</code>.</p>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="va">registers</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"a"</span> <span class="op">=</span> <span class="fl">1</span>, <span class="st">"b"</span> <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">functions</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="st">"sum"</span> <span class="op">=</span> \<span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="op">{</span> <span class="va">self</span><span class="op">[[</span><span class="va">x</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">self</span><span class="op">[[</span><span class="va">x</span><span class="op">]</span><span class="op">]</span>, <span class="va">y</span><span class="op">)</span> <span class="op">}</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"prod"</span> <span class="op">=</span> <span class="fu"><a href="assembly_utils.html">get_premade</a></span><span class="op">(</span><span class="st">"multiply"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu">create_assembly2</span><span class="op">(</span><span class="va">registers</span>, <span class="fu"><a href="assembly_utils.html">get_premade</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"add"</span>, <span class="st">"prod"</span> <span class="op">=</span> <span class="st">"multiply"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">a</span><span class="op">$</span><span class="fu">run</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"add a 4"</span>, <span class="st">"prod b 4"</span><span class="op">)</span>, target <span class="op">=</span> <span class="st">'a'</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
 
