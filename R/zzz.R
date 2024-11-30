@@ -4,6 +4,7 @@
   d <- d[!(d %in% c("pacman", "renv", "testthat"))]
   packageStartupMessage(
     "To install `mistlecode` yourself, run `devtools::install_github('guslipkin/mistlecode')`.\n\n",
-    "Also loading: ", paste(d, collapse = " ")
+    "Also loading: `", paste(d, collapse = "`, `"), "`\n\n",
+    "Run `mistlecode::help()` for more details."
   )
 }

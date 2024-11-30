@@ -24,6 +24,7 @@ points are considered noise (see DBSCAN* in Campello et al, 2013).}
 
 \item{eps }{ value of the \code{eps} parameter.}
 \item{minPts }{ value of the \code{minPts} parameter.}
+\item{metric }{ used distance metric.}
 \item{cluster }{A integer vector with cluster assignments. Zero indicates noise points.}
 
 \code{is.corepoint()} returns a logical vector indicating for each data point if it is a
