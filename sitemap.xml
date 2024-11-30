@@ -1,72 +1,27 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>/404.html</loc>
-  </url>
-  <url>
-    <loc>/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>/authors.html</loc>
-  </url>
-  <url>
-    <loc>/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/assembly.html</loc>
-  </url>
-  <url>
-    <loc>/reference/assembly2.html</loc>
-  </url>
-  <url>
-    <loc>/reference/assembly_utils.html</loc>
-  </url>
-  <url>
-    <loc>/reference/coords_to_matrix.html</loc>
-  </url>
-  <url>
-    <loc>/reference/dbscan.html</loc>
-  </url>
-  <url>
-    <loc>/reference/expand_directions.html</loc>
-  </url>
-  <url>
-    <loc>/reference/flash.html</loc>
-  </url>
-  <url>
-    <loc>/reference/follow_directions.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_adjacent_coords.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_adjacent_values.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_diagonal.html</loc>
-  </url>
-  <url>
-    <loc>/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/lag_multiple.html</loc>
-  </url>
-  <url>
-    <loc>/reference/loop.html</loc>
-  </url>
-  <url>
-    <loc>/reference/make_day.html</loc>
-  </url>
-  <url>
-    <loc>/reference/matrix_to_coords.html</loc>
-  </url>
-  <url>
-    <loc>/reference/mistlecode-package.html</loc>
-  </url>
-  <url>
-    <loc>/reference/parse_grid.html</loc>
-  </url>
-  <url>
-    <loc>/reference/strg_extract_all.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>/404.html</loc></url>
+<url><loc>/LICENSE.html</loc></url>
+<url><loc>/authors.html</loc></url>
+<url><loc>/index.html</loc></url>
+<url><loc>/reference/assembly.html</loc></url>
+<url><loc>/reference/assembly2.html</loc></url>
+<url><loc>/reference/assembly_utils.html</loc></url>
+<url><loc>/reference/coords_to_matrix.html</loc></url>
+<url><loc>/reference/dbscan.html</loc></url>
+<url><loc>/reference/expand_directions.html</loc></url>
+<url><loc>/reference/flash.html</loc></url>
+<url><loc>/reference/follow_directions.html</loc></url>
+<url><loc>/reference/get_adjacent_coords.html</loc></url>
+<url><loc>/reference/get_adjacent_values.html</loc></url>
+<url><loc>/reference/get_diagonal.html</loc></url>
+<url><loc>/reference/help.html</loc></url>
+<url><loc>/reference/index.html</loc></url>
+<url><loc>/reference/lag_multiple.html</loc></url>
+<url><loc>/reference/loop.html</loc></url>
+<url><loc>/reference/make_day.html</loc></url>
+<url><loc>/reference/matrix_to_coords.html</loc></url>
+<url><loc>/reference/mistlecode-package.html</loc></url>
+<url><loc>/reference/parse_grid.html</loc></url>
+<url><loc>/reference/strg_extract_all.html</loc></url>
 </urlset>
+
