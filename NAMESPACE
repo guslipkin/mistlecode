@@ -2,6 +2,7 @@
 
 export(add_processor)
 export(coords_to_matrix)
+export(count_in)
 export(create_assembly)
 export(create_assembly2)
 export(dbscan)
