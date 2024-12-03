@@ -36,6 +36,12 @@ jobs:
       - name: Update version
         run: desc::desc_bump_version('dev')
         shell: Rscript {0}
+      - name: Commit version
+        run: |
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'guslipkin@users.noreply.github.com'
+          git commit Description -m 'Bumb version'
+          git push
 
       - name: Build site
         run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
