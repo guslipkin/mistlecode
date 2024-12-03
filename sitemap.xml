@@ -9,6 +9,7 @@
 <url><loc>/reference/coords_to_matrix.html</loc></url>
 <url><loc>/reference/count_in.html</loc></url>
 <url><loc>/reference/dbscan.html</loc></url>
+<url><loc>/reference/dot-replace_na.html</loc></url>
 <url><loc>/reference/expand_directions.html</loc></url>
 <url><loc>/reference/flash.html</loc></url>
 <url><loc>/reference/follow_directions.html</loc></url>
@@ -16,10 +17,12 @@
 <url><loc>/reference/get_adjacent_values.html</loc></url>
 <url><loc>/reference/get_diagonal.html</loc></url>
 <url><loc>/reference/help.html</loc></url>
+<url><loc>/reference/index-topic.html</loc></url>
 <url><loc>/reference/index.html</loc></url>
 <url><loc>/reference/lag_multiple.html</loc></url>
-<url><loc>/reference/loop.html</loc></url>
 <url><loc>/reference/make_day.html</loc></url>
+<url><loc>/reference/matrix.html</loc></url>
+<url><loc>/reference/matrix_as.html</loc></url>
 <url><loc>/reference/matrix_to_coords.html</loc></url>
 <url><loc>/reference/mistlecode-package.html</loc></url>
 <url><loc>/reference/parse_grid.html</loc></url>
