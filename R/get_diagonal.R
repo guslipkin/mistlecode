@@ -21,39 +21,46 @@ get_diagonal <- function(m, x, dim = c("row", "col"), dir = c("up", "down")) {
   if (length(m) == 1) m else diag(m)
 }
 
-get_diagonals_at <- function(m, y, x) {
-  g <- expand.grid(
-    'y' = seq_len(nrow(m)),
-    'x' = seq_len(ncol(m))
-  )
-  m[!(round(sqrt(abs(y - g$y) ^ 2 + abs(x - g$x) ^ 2) %% sqrt(2), 6) %in% round(c(0, sqrt(2)), 6))] <- NA
-  d <-
+#' Get a list of matrix diagonals
+#'
+#' @param m A square matrix
+#' @param corner A coner where the diagonal should start from
+#'
+#' @return A list of vectors
+#' @export
+#' @details The returned vectors all start on the top or bottom of the original
+#' matrix. If opposing corners (eg top left and bottom right) are chosen, then
+#' the longest vector from the bottom corner will be dropped because it is a
+#' duplicate of the longest from the top.
+get_diagonal2 <- function(m, corner = c('tl', 'tr', 'bl', 'br')) {
+  stopifnot(nrow(m) == ncol(m))
+  corner <- rlang::arg_match(corner, c('tl', 'tr', 'bl', 'br'), multiple = TRUE)
+  col_seq <-
     m |>
-    mistlecode::matrix_to_coords() |>
-    dplyr::filter(!is.na(.data$data))
-  dplyr::bind_rows(
-    'ne' = dplyr::filter(d, row < y & col > x),
-    'nw' = dplyr::filter(d, row < y & col < x),
-    'se' = dplyr::filter(d, row > y & col > x),
-    'sw' = dplyr::filter(d, row > y & col < x),
-    .id = 'dir'
-  ) |>
-    dplyr::mutate(
-      'dist' = sqrt(abs(row - y)^2 + abs(col - x)^2)
-    ) |>
-    dplyr::arrange(.data$dir, .data$dist)
-}
+    ncol() |>
+    seq_len()
 
-# m <- matrix(1:100, 10, 10)
-# y <- 7; x <- 10;
-# d <-
-#   get_diagonals_at(m, y, x) |>
-#   mistlecode::matrix_to_coords() |>
-#   dplyr::filter(!is.na(.data$data))
-# dplyr::bind_rows(
-#   'ne' = dplyr::filter(d, row < y & col > x),
-#   'nw' = dplyr::filter(d, row < y & col < x),
-#   'se' = dplyr::filter(d, row > y & col > x),
-#   'sw' = dplyr::filter(d, row > y & col < x),
-#   .id = 'dir'
-# )
+  map_forward <- function(m, col_seq) {
+    purrr::map(col_seq, \(x) {
+      x <- m[x:(nrow(m)), 1:(ncol(m) + 1 - x)]
+      if (length(x) == 1) x else diag(x)
+    })
+  }
+
+  diags <-
+    list(
+      'tr' = \() { map_forward(m, col_seq) },
+      'tl' = \() { m[(nrow(m)):1,] |> map_forward(col_seq) },
+      'br' = \() { m[,(ncol(m)):1] |> map_forward(col_seq) },
+      'bl' = \() { m[(nrow(m):1),(ncol(m):1)] |> map_forward(col_seq) }
+    )[corner] |>
+      purrr::map(\(x) rev(x())) |>
+      (\(x) {
+        if (length(corner) == 1) unlist(x, recursive = FALSE) else x
+      })()
+
+  if (all(c('tl', 'br') %in% names(diags))) diags$br[[length(diags$br)]] <- NULL
+  if (all(c('tr', 'bl') %in% names(diags))) diags$bl[[length(diags$bl)]] <- NULL
+
+  return(diags)
+}
