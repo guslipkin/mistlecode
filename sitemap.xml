@@ -16,6 +16,7 @@
 <url><loc>/reference/get_adjacent_coords.html</loc></url>
 <url><loc>/reference/get_adjacent_values.html</loc></url>
 <url><loc>/reference/get_diagonal.html</loc></url>
+<url><loc>/reference/get_diagonal2.html</loc></url>
 <url><loc>/reference/help.html</loc></url>
 <url><loc>/reference/index-topic.html</loc></url>
 <url><loc>/reference/index.html</loc></url>
@@ -27,6 +28,7 @@
 <url><loc>/reference/mistlecode-package.html</loc></url>
 <url><loc>/reference/parse_grid.html</loc></url>
 <url><loc>/reference/read_list.html</loc></url>
+<url><loc>/reference/read_matrix.html</loc></url>
 <url><loc>/reference/strg_extract_all.html</loc></url>
 </urlset>
 
