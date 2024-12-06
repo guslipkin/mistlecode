@@ -6,6 +6,7 @@
 <url><loc>/reference/assembly.html</loc></url>
 <url><loc>/reference/assembly2.html</loc></url>
 <url><loc>/reference/assembly_utils.html</loc></url>
+<url><loc>/reference/cast_matrix.html</loc></url>
 <url><loc>/reference/coords_to_matrix.html</loc></url>
 <url><loc>/reference/count_in.html</loc></url>
 <url><loc>/reference/dbscan.html</loc></url>
@@ -23,7 +24,6 @@
 <url><loc>/reference/lag_multiple.html</loc></url>
 <url><loc>/reference/make_day.html</loc></url>
 <url><loc>/reference/matrix.html</loc></url>
-<url><loc>/reference/matrix_as.html</loc></url>
 <url><loc>/reference/matrix_to_coords.html</loc></url>
 <url><loc>/reference/mistlecode-package.html</loc></url>
 <url><loc>/reference/parse_grid.html</loc></url>
