@@ -4,7 +4,7 @@
 \alias{read_matrix}
 \title{Read text that should be a matrix}
 \usage{
-read_matrix(path, split = "", cast = identity)
+read_matrix(path, split = "", skip = 0, cast = identity)
 }
 \arguments{
 \item{path}{A file path}

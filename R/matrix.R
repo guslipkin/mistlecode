@@ -51,3 +51,16 @@ matrix_join <- function(x, y, false = '', fn = \(z) z != false) {
   x[is.na(x)] <- FALSE
   return(x)
 }
+
+#' Cast a matrix to the desired type
+#' @rdname cast_matrix
+#' @param x A matrix
+#' @param fn A bare function such as [as.character] or [as.integer]
+#'
+#' @return A matrix of the desired type
+#' @export
+cast_matrix <- function(x, fn) {
+  x |>
+    fn() |>
+    `dim<-`(dim(x))
+}

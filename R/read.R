@@ -21,12 +21,22 @@ read_list <- function(path, split = ' ', cast = identity) {
 #'
 #' @return A `matrix` of type `cast`
 #' @export
-read_matrix <- function(path, split = '', cast = identity) {
+read_matrix <- function(path, split = '', skip = 0, cast = identity) {
   path |>
-    read.delim(header = FALSE, sep = '') |>
-    dplyr::mutate('V1' = .data$V1 |> strsplit('')) |>
+    read.delim(header = FALSE, sep = '', skip = skip) |>
+    dplyr::mutate('V1' = .data$V1 |> strsplit(split)) |>
     tidyr::unnest_wider('V1', names_sep = '_') |>
     as.matrix() |>
     unname() |>
     cast()
 }
+
+# read_split_input <- function(path, fn1, fn2) {
+#   # skip <- which(readLines(path) == '')
+#
+#   # list(
+#   #   'dt1' = fn1(path),
+#   #   'dt2' = fn2(path)
+#   # )
+# }
+
