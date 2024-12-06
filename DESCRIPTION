@@ -1,6 +1,6 @@
 Package: mistlecode
 Title: My Advent of Code helper package
-Version: 0.0.0.9003
+Version: 0.0.0.9004
 Authors@R: 
     person("Gus", "Lipkin", , "gus.lipkin@gmail.com", role = c("aut", "cre"))
 Description: Provides a set of functions to tackle common Advent of Code problem styles. I can't promise they will help for future puzzles, but they may help for past ones.
