@@ -18,3 +18,7 @@ make_day <- function(year = lubridate::year(Sys.Date()), day = lubridate::mday(S
     writeLines(path)
   rstudioapi::navigateToFile(path)
 }
+
+
+# 'data/template.qmd' |> readLines() -> template
+# save(template, file = 'data/template.rda')

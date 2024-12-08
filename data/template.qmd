@@ -11,7 +11,11 @@ options(scipen = 999)
 ```
 
 ```{r}
-dt <- readLines("input.txt")
+dt <- 
+  'input.txt' |>
+  readLines() |>
+  stringr::str_split('', simplify = TRUE)
+  readr::read_delim(delim = '', col_names = FALSE)
 ```
 
 ## Part 1
